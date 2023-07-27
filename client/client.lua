@@ -1,7 +1,13 @@
 local resourcename = GetCurrentResourceName()
+MyNumber = nil
+
+RegisterNetEvent('bbv-loadnumber:c',function(data)
+  MyNumber = data
+end)
 
 CreateThread(function()
     Wait(1000)
+    TriggerServerEvent('bbv-loadnumber:s') -- using events so I don't use framework callbacks.
     for k,v in pairs(Config.Posts) do
         Wrapper:CreateObject(resourcename..k,v.Prop,v.Pos,false,true)
         Wrapper:Target(resourcename..k,'Open',v.Target,'bbv-mail:open'..v.Name)
@@ -23,6 +29,14 @@ CreateThread(function()
                       title = 'Receive Mail',
                       description = 'Price : FREE',
                       event = 'bbv-mail:receive',
+                      args = {
+                        location = currpos,
+                      }
+                    },
+                    {
+                      title = 'My Post Number',
+                      description = 'Check your post office number',
+                      event = 'bbv-mail:postcheck',
                       args = {
                         location = currpos,
                       }
@@ -54,10 +68,38 @@ CreateThread(function()
                  }
                 }
               },
+              {
+                header = 'My Post Number',
+                txt = 'Check your post office number',
+                params = {
+                  event = 'bbv-mail:postcheck',
+                  args = {
+                    location = currpos
+                 }
+                }
+              },
           })
           end
         end)
     end
+end)
+
+RegisterNetEvent('bbv-mail:postcheck',function()
+  if Config.Settings.Menu == "OX" then 
+    local alert = exports['ox_lib']:alertDialog({
+      header = 'Your code is '.. MyNumber,
+      centered = true,
+      cancel = false
+  })
+  end
+  if Config.Settings.Menu == "QB" then 
+    exports['qb-menu']:openMenu({
+      {
+          header = 'Your code is '.. MyNumber,
+          isMenuHeader = true,
+      },
+  })
+  end
 end)
 
 RegisterNetEvent('bbv-mail:receive',function(data)
@@ -160,7 +202,7 @@ RegisterNetEvent('bbv-mail:send:open',function(data)
     local location = data.location
 
     if Config.Settings.Menu == "OX" then 
-      local input = exports['ox_lib']:inputDialog('Postal Menu', {'CitizenID', 'Password'})
+      local input = exports['ox_lib']:inputDialog('Postal Menu', {'Postal Code', 'Password'})
  
       if not input then return end 
       TriggerServerEvent('bbv-mail:charge',location..input[1]..input[2],location,Config.Settings.PostSize,Config.Settings.PostSlots)
@@ -171,7 +213,7 @@ RegisterNetEvent('bbv-mail:send:open',function(data)
           submitText = "Bill",
           inputs = {
               {
-                  text = "Citizen ID (#)",
+                  text = "Postal Code (#)",
                   name = "citizenid", 
                   type = "text",
                   isRequired = true, 
