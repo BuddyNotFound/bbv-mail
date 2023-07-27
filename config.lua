@@ -2,7 +2,7 @@ Config = {}
 Config.Debug = true
 
 Config.Settings = {
-    Target = "ST", -- OX/QB/BT
+    Target = "ST", -- OX/QB/BT/ST
     Inventory = 'OX', -- QB/OX
     Menu = 'OX', -- QB/OX
     SendPrice = 250,
