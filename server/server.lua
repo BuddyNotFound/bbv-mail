@@ -20,7 +20,7 @@ RegisterNetEvent('bbv-mail:charge',function(a,b,c,d)
     -- local cash = Player.PlayerData.money.cash
     -- if cash > Config.Settings.SendPrice then 
     --     Player.Functions.RemoveMoney('cash', Config.Settings.SendPrice) 
-    --     TriggerClientEvent('bbv-mail:charge:c',src,a,b,c,d)
+        TriggerClientEvent('bbv-mail:charge:c',src,a,b,c,d)
     -- else
     --     TriggerClientEvent('QBCore:Notify', src, 'You dont have enough cash on you.', 'error', 3500)
     -- end
