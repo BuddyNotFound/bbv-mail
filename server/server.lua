@@ -15,7 +15,7 @@ end)
 RegisterNetEvent('bbv-mail:charge',function(a,b,c,d)
     -- REMOVED FOR BETTER FRAMEWORK SUPPORT, Is anyone wants he can enable it himself
 
-    -- local src = source 
+    local src = source 
     -- local Player = QBCore.Functions.GetPlayer(src)
     -- local cash = Player.PlayerData.money.cash
     -- if cash > Config.Settings.SendPrice then 

@@ -9,7 +9,7 @@ CreateThread(function()
     Wait(1000)
     TriggerServerEvent('bbv-loadnumber:s') -- using events so I don't use framework callbacks.
     for k,v in pairs(Config.Posts) do
-        Wrapper:CreateObject(resourcename..k,v.Prop,v.Pos,false,true)
+        -- Wrapper:CreateObject(resourcename..k,v.Prop,v.Pos,false,true)
         Wrapper:Target(resourcename..k,'Open',v.Target,'bbv-mail:open'..v.Name)
         Wrapper:Blip(resourcename..k,'Postal',v.Pos,525,5,0.6)
         RegisterNetEvent('bbv-mail:open'..v.Name,function()
