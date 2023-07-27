@@ -1,11 +1,9 @@
 Config = {}
 Config.Debug = true
 
-QBCore = exports['qb-core']:GetCoreObject()
 
 Config.Settings = {
-    Framework = 'QB', 
-    Target = "OX", -- OX/QB/BT
+    Target = "ST", -- OX/QB/BT
     Inventory = 'OX', -- QB/OX
     Menu = 'OX', -- QB/OX
     SendPrice = 250,
