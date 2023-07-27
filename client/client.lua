@@ -7,7 +7,7 @@ end)
 
 CreateThread(function()
     Wait(1000)
-    TriggerServerEvent('bbv-loadnumber:s') -- using events so I don't use framework callbacks.
+    TriggerServerEvent('bbv-loadnumber:s') -- using events so I don't use Inventory callbacks.
     for k,v in pairs(Config.Posts) do
         -- Wrapper:CreateObject(resourcename..k,v.Prop,v.Pos,false,true)
         Wrapper:Target(resourcename..k,'Open',v.Target,'bbv-mail:open'..v.Name)
@@ -231,10 +231,11 @@ RegisterNetEvent('bbv-mail:send:open',function(data)
 end)
 
 RegisterNetEvent('bbv-mail:charge:c',function(a,b,c,d)
-  if Config.Settings.Framework == "OX" then 
+  if Config.Settings.Inventory == "OX" then 
+    print(a,b,c,d)
     Wrapper:Stash(a,b,c,d)
   end
-  if Config.Settings.Framework == "QB" then 
+  if Config.Settings.Inventory == "QB" then 
     Wrapper:Stash(a,a,Config.Settings.PostSize,Config.Settings.PostSlots)
   end
 end)
