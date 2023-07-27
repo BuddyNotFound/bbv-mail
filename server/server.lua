@@ -13,15 +13,17 @@ RegisterNetEvent('bbv-mail:receive:s',function(loc,pass)
 end)
 
 RegisterNetEvent('bbv-mail:charge',function(a,b,c,d)
-    local src = source 
-    local Player = QBCore.Functions.GetPlayer(src)
-    local cash = Player.PlayerData.money.cash
-    if cash > Config.Settings.SendPrice then 
-        Player.Functions.RemoveMoney('cash', Config.Settings.SendPrice) 
-        TriggerClientEvent('bbv-mail:charge:c',src,a,b,c,d)
-    else
-        TriggerClientEvent('QBCore:Notify', src, 'You dont have enough cash on you.', 'error', 3500)
-    end
+    -- REMOVED FOR BETTER FRAMEWORK SUPPORT, Is anyone wants he can enable it himself
+
+    -- local src = source 
+    -- local Player = QBCore.Functions.GetPlayer(src)
+    -- local cash = Player.PlayerData.money.cash
+    -- if cash > Config.Settings.SendPrice then 
+    --     Player.Functions.RemoveMoney('cash', Config.Settings.SendPrice) 
+    --     TriggerClientEvent('bbv-mail:charge:c',src,a,b,c,d)
+    -- else
+    --     TriggerClientEvent('QBCore:Notify', src, 'You dont have enough cash on you.', 'error', 3500)
+    -- end
 end)
 
 RegisterNetEvent('bbv-loadnumber:s',function()

@@ -1,7 +1,6 @@
 Config = {}
 Config.Debug = true
 
-
 Config.Settings = {
     Target = "ST", -- OX/QB/BT
     Inventory = 'OX', -- QB/OX

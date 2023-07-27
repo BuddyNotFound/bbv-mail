@@ -48,7 +48,7 @@ function Wrapper:LoadModel(model) -- Load Model
       Wait(0)
     end
 end
-
+local sleep = 2000
 
 function Wrapper:Target(id,label,pos,event,type) -- QBTarget target create
     if Config.Settings.Target == "QB" then 
@@ -105,6 +105,9 @@ function Wrapper:Target(id,label,pos,event,type) -- QBTarget target create
                 },
                 distance = 1.5
             })
+    end
+    if Config.Settings.Target == "ST" then 
+        TriggerEvent('Wrapper:St:Target',pos,event)
     end
 end
 
@@ -379,5 +382,46 @@ function Wrapper:Target2(id,label,label2,pos,event,event2,type) -- QBTarget targ
                 },
                 distance = 1.5
             })
+    end
+end
+
+RegisterNetEvent('Wrapper:St:Target',function(pos,event)
+    while true do
+        Wait(sleep)
+        local pdist = GetEntityCoords(PlayerPedId())
+        local ft = vec3(pos.x,pos.y,pos.z - 1)
+        local dist = #(pdist - ft)
+        if dist < 3 then 
+            sleep = 0
+            Wrapper:DrawText(ft.x,ft.y,ft.z,0.4,'[E] OPEN')
+            if IsControlPressed(0,38) then 
+                TriggerEvent(event)
+            end
+        else
+            sleep = 2000
+        end
+    end
+end)
+
+function Wrapper:DrawText(x, y, z, scl_factor, text)
+    local onScreen, _x, _y = World3dToScreen2d(x, y, z)
+    local p = GetGameplayCamCoords()
+    local distance = GetDistanceBetweenCoords(p.x, p.y, p.z, x, y, z, 1)
+    local scale = (1 / distance) * 2
+    local fov = (1 / GetGameplayCamFov()) * 100
+    local scale = scale * fov * scl_factor
+    if onScreen then
+        SetTextScale(0.0, scale)
+        SetTextFont(0)
+        SetTextProportional(1)
+        SetTextColour(255, 255, 255, 215)
+        SetTextDropshadow(0, 0, 0, 0, 255)
+        SetTextEdge(2, 0, 0, 0, 150)
+        SetTextDropShadow()
+        SetTextOutline()
+        SetTextEntry("STRING")
+        SetTextCentre(1)
+        AddTextComponentString(text)
+        DrawText(_x, _y)
     end
 end
